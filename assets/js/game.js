@@ -17,6 +17,7 @@ var fightOrSkip = function() {
     window.alert("You need to provide a valid answer! Please try again.");
     // use return to call it again and stop the rest of this function from running
     return fightOrSkip();
+  }
 
   // convert promptFight to all lowercase so we can check with less options
   promptFight = promptFight.toLowerCase();
