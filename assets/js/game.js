@@ -2,26 +2,26 @@
 
 // function to generate a random numeric value
 var randomNumber = function(min, max) {
-    var value = Math.floor(Math.random() * (max - min + 1) + min);
-  
-    return value;
-  };
+  var value = Math.floor(Math.random() * (max - min) + min);
 
-// function to check if player wants to fight or skip  
+  return value;
+};
+
+// function to check if player wants to fight or skip
 var fightOrSkip = function() {
-  //ask player if they'd like to fight or skip using fightOrSkip function
+  // ask player if they'd like to fight or run
   var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
 
-    // validate prompt answer
+  // validate prompt answer
   if (promptFight === "" || promptFight === null) {
     window.alert("You need to provide a valid answer! Please try again.");
-  // use return to call it again and stop the rest of this function from running
+    // use return to call it again and stop the rest of this function from running
     return fightOrSkip();
   
    // convert promptFight to all lowercase so we can check with less options
-   promptFight = promptFight.toLowerCase();
-  
-   if (promptFight === "skip") {
+  promptFight = promptFight.toLowerCase();
+
+  if (promptFight === "skip") {
     // confirm player wants to skip
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -31,16 +31,16 @@ var fightOrSkip = function() {
       // subtract money from playerMoney for skipping, but don't let them go into the negative
       playerInfo.money = Math.max(0, playerInfo.money - 10);
       // stop while() loop using break; and enter next fight
-  
-     // return true if player wants to leave
-     return true;
+
+      // return true if player wants to leave
+      return true;
     }
   }
   return false;
 };
-    
-  // fight function (now with parameter for enemy's object holding name, health, and attack values)
-  var fight = function(enemy) {
+
+// fight function (now with parameter for enemy's object holding name, health, and attack values)
+var fight = function(enemy) {
     
     // repeat and execute as long as the enemy-robot is alive
     while (playerInfo.health > 0 && enemy.health > 0) {
@@ -161,29 +161,25 @@ var fightOrSkip = function() {
   var shop = function() {
     // ask player what they'd like to do
     var shopOptionPrompt = window.prompt(
-      'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one "REFILL", "UPGRADE", or "LEAVE" to make a choice.'
+      'Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter 1 for REFILL, 2 for UPGRADE, or 3 for LEAVE.'
     );
   
+  //convert answer from prompt to an actual number
+  shopOptionPrompt = parseInt(shopOptionPrompt);
+
     // use switch case to carry out action
     switch (shopOptionPrompt) {
-      case 'REFILL':
-      case 'refill':
+      case 1:
         playerInfo.refillHealth();
         break;
-      case 'UPGRADE':
-      case 'upgrade':
+      case 2:
         playerInfo.upgradeAttack();
         break;
-      case 'LEAVE':
-      case 'leave':
+      case 3:
         window.alert('Leaving the store.');
-  
-        // do nothing, so function will end
         break;
       default:
         window.alert('You did not pick a valid option. Try again.');
-  
-        // call shop() again to force player to pick a valid option
         shop();
         break;
     }
